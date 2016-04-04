@@ -17,36 +17,18 @@ public class datosFiables {
 		BufferedReader entradaDesdeServidor = 
 				new BufferedReader(new InputStreamReader(
 					socketCliente.getInputStream()));
-		//char [] arrayFrase = new char [frase.length()];
+		
 		for(int i=0; i<frase.length(); i++){
-			salidaAServidor.writeBytes("(" + frase.charAt(i) + "," + i + ")");
-			//salidaAServidor.write(i);
+			salidaAServidor.writeBytes("(" + frase.charAt(i) + "," + i + ")" + '\n');
 			ack = entradaDesdeServidor.read();
 			if (i == ack){
 				System.out.println("ACK: " + ack);
 			}
-		}
-		salidaAServidor.writeBytes(null);
+		}		
+		salidaAServidor.writeBytes("FIN-ACK");
+		System.out.println("Frase obtenida: ");
 		System.out.println(entradaDesdeServidor.readLine());
 		socketCliente.close();
-			/* int ack = entrada.nextInt();
-			if ( i == ack ) {
-				char letra = frase.charAt(i);
-				arrayFrase[i] = letra;
-			}
-				else{
-					i--;
-			}
-		}
-		salidaAServidor.writeBytes(frase + '\n');
-		fraseModificada = entradaDesdeServidor.readLine();
-		System.out.println("Del Servidor: " + fraseModificada);
-		socketCliente.close();			
-		System.out.print("Frase obtenida: ");
-		for(int j=0;j<frase.length(); j++){
-			System.out.print(arrayFrase[j]);
-		}
-		System.out.println(""); */
 	}
 	
 }
