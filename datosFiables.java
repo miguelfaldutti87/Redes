@@ -27,8 +27,7 @@ public class datosFiables {
 		}		
 		salidaAServidor.writeBytes("FIN-ACK");
 		System.out.println("Frase obtenida: ");
-		System.out.println(entradaDesdeServidor.readLine());
-		socketCliente.close();
+		String entradaFinal = entradaDesdeServidor.readLine();
+		System.out.println(entradaFinal);
 	}
-	
 }
