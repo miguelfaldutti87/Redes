@@ -17,6 +17,7 @@ public class datosFiables {
 		BufferedReader entradaDesdeServidor = 
 				new BufferedReader(new InputStreamReader(
 					socketCliente.getInputStream()));
+		
 		for(int i=0; i<frase.length(); i++){
 			salidaAServidor.writeBytes("(" + frase.charAt(i) + "," + i + ")" + '\n');
 			ack = entradaDesdeServidor.read();
@@ -24,7 +25,7 @@ public class datosFiables {
 				System.out.println("ACK: " + ack);
 			}
 		}		
-		salidaAServidor.writeBytes("FIN-ACK");
+		salidaAServidor.writeBytes("FINACK" + '\n');
 		System.out.println("Frase obtenida: ");
 		String entradaFinal = entradaDesdeServidor.readLine();
 		System.out.println(entradaFinal);

@@ -16,14 +16,26 @@ public class srvDatosFiables {
 					socketConexion.getInputStream()));
 		DataOutputStream salidaACliente = 
 				new DataOutputStream(socketConexion.getOutputStream());
-		fraseCliente = entradaDesdeCliente.readLine();
-		while(fraseCliente != "FIN-ACK"){
+		//fraseCliente = entradaDesdeCliente.readLine();
+		/* while(fraseCliente != "FIN-ACK"){
+			System.out.println("Enviando " + fraseCliente);
         	valorCliente = Integer.parseInt(""+(fraseCliente.charAt(3)));
         	fraseMayusculas = fraseMayusculas + fraseCliente.charAt(2);
-        	System.out.println("Enviando ACK: " + valorCliente);
+        	//System.out.println("Enviando ACK: " + valorCliente + " - " + fraseCliente);
         	salidaACliente.write(valorCliente);
         	fraseCliente = entradaDesdeCliente.readLine();
-        }
+        } */
+        do{
+        	fraseCliente = entradaDesdeCliente.readLine();
+        	if (fraseCliente.equals("FINACK")){
+        		break;
+        	}
+        	System.out.println(fraseCliente + "!FIN-ACK");
+        	valorCliente = Integer.parseInt("" + (fraseCliente.charAt(3)));
+        	fraseMayusculas = fraseMayusculas + fraseCliente.charAt(1);
+        	System.out.println("Enviando ACK: " + valorCliente);
+        	salidaACliente.write(valorCliente);
+        }while(true);
         System.out.println("Enviando frase..");
         salidaACliente.writeBytes(fraseMayusculas);
         socketConexion.close();
